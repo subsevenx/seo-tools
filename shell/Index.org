@@ -1,0 +1,7 @@
+
+* Index
+A living document detailing what each script does.
+
+| File    | Description                                                             | Usage                                  |
+| bots.sh | Shell script that uses grep to filter out bots from an access.log file. | sh bots.sh example.log output.name.log |
+|         |                                                                         |                                        |

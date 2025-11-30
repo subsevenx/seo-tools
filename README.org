@@ -1,0 +1,8 @@
+* SEO Utilities
+This repo is dedicated to the utilities I have made in my off-time that help me during my day job as a Technical SEO.
+
+** Utilities Index
+This will keep expanding.
+
+| Tool  | Description                           |
+| shell | Shell-based utilities. Most use bash. |
