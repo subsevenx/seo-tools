@@ -204,13 +204,13 @@ BOTS=(
     "FreshRSS"
 )
 
-if [[ ! -f "$LOG_FILE" ]]; then
-    echo "Error: $LOG_FILE not found" >&2
-    exit 1
-fi
-
 PATTERN=$(IFS="|"; echo "${BOTS[*]}")
-grep -Ei "$PATTERN" "$LOG_FILE" > "$OUTPUT_FILE"
+
+if command -v rg &>/dev/null; then
+    rg -i "$PATTERN" "$LOG_FILE" > "$OUTPUT_FILE"
+else
+    grep -Ei "$PATTERN" "$LOG_FILE" > "$OUTPUT_FILE"
+fi
 
 COUNT=$(wc -l < "$OUTPUT_FILE")
 echo "Filtered $COUNT bot requests to $OUTPUT_FILE"
