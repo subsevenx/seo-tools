@@ -15,5 +15,13 @@ while IFS= read -r url || [[ -n "$url" ]]; do
 	[[ -z "$url" ]] && continue
 	ts=$(date +%Y%m%d_%H%M%S)
 
+	fn=$(echo "$url" | sed 's|https\?://||; s|[^a-zA-Z0-9]|_|g')
+
+	if ! content=$(timeout 30 w3m -dump "$url" 2>/dev/null); then
+		echo "Failed: $url" >&2
+		continue
+	fi
+
+	echo "$content" | tr '\n' ' ' | tr -s ' ' > "${odir}/${fn}_${ts}.txt"
 done < "$urls"
 
