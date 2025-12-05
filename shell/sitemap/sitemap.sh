@@ -56,8 +56,8 @@ xturls() {
     curl -sL "$smurl" | rg -oP '(?<=<loc>)[^<]+(?=</loc>)'
 }
 
-# app loop:
-# 
+# todo: add documentation.
+# comment: 2025-12-05 00:08:57
 for i in "$@"; do
     sm=()
     fdm=""
@@ -75,5 +75,9 @@ for i in "$@"; do
         dm="${dm%%/*}"
         fsm "$dm"
     fi
-
+    
+    if [[ ${#sm[@]} -eq 0 ]]; then
+        echo "No sitemap found for: $i" >&2
+        continue
+    fi
 done
