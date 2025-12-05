@@ -21,8 +21,11 @@ while IFS= read -r url || [[ -n "$url" ]]; do
         continue
     fi
     
-    echo "$content" > "${odir}/${fn}.html"
+    if ! echo "$content" | file -b --mime-type - | grep -q 'html'; then
+        echo "Skipping non-HTML: $url" >&2
+        continue
+    fi
+    
+    echo "$content" | tr '\n\t' ' ' | tr -s ' ' | sed 's/> *</></g' > "${odir}/${fn}.html" > "${odir}/${fn}.html"
 done < "$urls"
-
-
 
