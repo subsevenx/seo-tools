@@ -40,6 +40,23 @@ Text Mode:
 : -dump
 
 HTML Mode:
-: -dump_source -o accept_encoding='identity;q=0' # please see: https://stackoverflow.com/questions/41787966/dumping-html-source-using-w3m-gives-unexpected-characters-symbols 
+: -dump_source -o accept_encoding='identity;q=0' # please see: https://stackoverflow.com/questions/41787966/dumping-html-source-using-w3m-gives-unexpected-characters-symbols for more info
 
 No other headers or custom user agents are passed.
+
+** Bots.sh
+A very simple script that parses a list of user agents and pulls them out of an Apache access server log.
+
+*** Use Cases
+Good for isolated analysis and finding what crawlers might be accessing your website. I specifically built the script to further process with [[https://goaccess.io][GoAccess]].
+
+*** Usage
+This script supports =rg=, but will use =grep= if you don't have it installed.
+
+First mark the script as executable: =chmod +x bots.sh=
+
+Then, usage is simple:
+: ./bots.sh <input_file> <output_file>"
+
+*** Sitemap.sh
+Still not done, will write here when it is.
