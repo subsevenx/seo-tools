@@ -27,7 +27,7 @@ while IFS= read -r url || [[ -n "$url" ]]; do
     echo "Crawling: $url"
     [[ -z "$url" ]] && continue
     
-    fn=$(echo "$url" | sed 's|https\?://||; s|[^a-zA-Z0-9]|_|g')
+    fn=$(echo "$url" | sed 's|https\?://||; s|[^a-zA-Z0-9]|_|g; s/_$//')
     
     if ! content=$(timeout 30 w3m -dump_source $w3mopt -o accept_encoding='identity;q=0' "$url" 2>/dev/null); then
         echo "Failed: $url" >&2
@@ -40,7 +40,7 @@ while IFS= read -r url || [[ -n "$url" ]]; do
     fi
     
     if [[ "$md" == "html" || "$md" == "both" ]]; then
-        echo "$content" | tr '\n\t' ' ' | tr -s ' ' | sed 's/> *</></g' > "${odir}/${fn}.html"
+        echo "$content" | tr '\n\t' ' ' | tr -s ' ' | sed ':a;N;$!ba;s/>\s*</></g' > "${odir}/${fn}.html"
     fi
     
     if [[ "$md" == "text" || "$md" == "both" ]]; then
