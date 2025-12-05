@@ -35,7 +35,6 @@ fsm() {
     fi
 }
 
-
 smrecur() {
     local smurl=$1
     echo "Finding sitemaps in: $smurl" >&2
