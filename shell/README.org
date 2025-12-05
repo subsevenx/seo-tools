@@ -20,7 +20,6 @@ This is especially useful to see what content it has access to in a page.
 + Using the HTML mode will save the HTML response, minified** (the regex I use is not perfect.) The HTML response can then be used to run secondary analyses on the pages.
 
 *** Usage
-
 First, use your package manager and install =w3m= and =coreutils= (if you are a non-Linux system.)
 
 Then =chmod +x ./crawl.sh= .
@@ -35,5 +34,12 @@ The default mode is HTML.
   ./crawl.sh -m html -w "-o user_agent='MyBot/1.0' -header 'X-Bot-Key: 6742'" urls.txt output
 #+END_SRC
 
-By default, the crawler passes the following flags: =-dump= (text) and/or =-dump_source= (HTML).
+By default, the crawler passes the following flags:
 
+Text Mode:
+: -dump
+
+HTML Mode:
+: -dump_source -o accept_encoding='identity;q=0' # please see: https://stackoverflow.com/questions/41787966/dumping-html-source-using-w3m-gives-unexpected-characters-symbols 
+
+No other headers or custom user agents are passed.
