@@ -1,4 +1,7 @@
 #!/bin/bash
+
+### this script depends on ripgrep, please make sure you have it.
+
 sm=()
 cm_sm_path=("/sitemap.xml" "/sitemap_index.xml" "/sitemap-index.xml")
 
