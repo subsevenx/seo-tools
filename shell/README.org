@@ -12,7 +12,7 @@ A living document detailing what each script does.
 #+END_SRC
 
 ** Crawl.sh
-A basic HTML crawler built on top of =w3m= that takes a text file comprising URLs and crawls them for content. Supports custom headers  and features three modes of crawl: text, html, or both.
+A basic HTML crawler built on top of =w3m= that takes a text file comprising URLs and crawls them for content. Supports custom  W3M options and features three modes of crawl: text, html, or both.
 
 *** Use Cases
 + Using the text mode will yield the content a naive crawler would see (naive meaning, a crawler that does not render HTML.)
@@ -36,3 +36,4 @@ The default mode is HTML.
 #+END_SRC
 
 By default, the crawler passes the following flags: =-dump= (text) and/or =-dump_source= (HTML).
+
