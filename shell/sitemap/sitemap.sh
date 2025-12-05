@@ -56,3 +56,24 @@ xturls() {
     curl -sL "$smurl" | rg -oP '(?<=<loc>)[^<]+(?=</loc>)'
 }
 
+# app loop:
+# 
+for i in "$@"; do
+    sm=()
+    fdm=""
+
+    if [[ "$i" =~ \.xml$ ]]; then
+        [[ "$i" =~ ^https?:// ]] || i="https://$i"
+        res=$(curl -sL -w '\n%{url_effective}' "$i")
+        fdm=$(gdomain "$(echo "$res" | tail -1)")
+        sm+=("$i")
+        smrecur "$i"
+    
+    else
+        dm="${i#https://}"
+        dm="${dm#http://}"
+        dm="${dm%%/*}"
+        fsm "$dm"
+    fi
+
+done
