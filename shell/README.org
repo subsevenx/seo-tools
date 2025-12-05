@@ -2,6 +2,37 @@
 * Index
 A living document detailing what each script does.
 
-| File    | Description                                                             | Usage                                  |
-| bots.sh | Shell script that uses grep to filter out bots from an access.log file. | sh bots.sh example.log output.name.log |
-|         |                                                                         |                                        |
+#+BEGIN_SRC
+├── crawler
+│   └── crawl.sh
+├── logs
+│   └── bots.sh
+└── sitemap
+    └── sitemap.sh
+#+END_SRC
+
+** Crawl.sh
+A basic HTML crawler built on top of =w3m= that takes a text file comprising URLs and crawls them for content. Supports custom headers  and features three modes of crawl: text, html, or both.
+
+*** Use Cases
++ Using the text mode will yield the content a naive crawler would see (naive meaning, a crawler that does not render HTML.)
+This is especially useful to see what content it has access to in a page.
++ Using the HTML mode will save the HTML response, minified** (the regex I use is not perfect.) The HTML response can then be used to run secondary analyses on the pages.
+
+*** Usage
+
+First, use your package manager and install =w3m= and =coreutils= (if you are a non-Linux system.)
+
+Then =chmod +x ./crawl.sh= .
+
+Launch as follows: =./crawl.sh -m {mode:optional} -o {w3m options:optiona} outputdir_path=
+If the dir does not exist, do not use a leading slash. If it does exist, reference it as =./dir=
+
+The default mode is HTML.
+
+[[https://w3m.sourceforge.net/MANUAL][Please see this for possible W3M commands you can pass]]. Example command:
+#+BEGIN_SRC bash
+  ./crawl.sh -m html -w "-o user_agent='MyBot/1.0' -header 'X-Bot-Key: 6742'" urls.txt output
+#+END_SRC
+
+By default, the crawler passes the following flags: =-dump= (text) and/or =-dump_source= (HTML).
