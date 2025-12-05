@@ -58,9 +58,11 @@ xturls() {
 
 # todo: add documentation.
 # comment: 2025-12-05 00:08:57
+# tag: org-doc
 for i in "$@"; do
     sm=()
     fdm=""
+    ts=$(date +%Y%m%d%H%M%S)
 
     if [[ "$i" =~ \.xml$ ]]; then
         [[ "$i" =~ ^https?:// ]] || i="https://$i"
@@ -80,4 +82,14 @@ for i in "$@"; do
         echo "No sitemap found for: $i" >&2
         continue
     fi
+
+    out="${fdm}_sitemap_${ts}.txt" > "$out"
+    
+    for sitemap in "${sm[@]}"; do
+        xturls "$sitemap" >> "$out"
+    done
+    
+    sort -u "$out" -o "$out"
+    
+    echo "URLs saved to $out"
 done
